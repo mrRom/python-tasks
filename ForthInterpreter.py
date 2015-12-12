@@ -1,7 +1,6 @@
 def evaluate(lines):
     stack = []
     for line in lines:
-        print line
         line = line.strip()
         if line.startswith("#") or line =="":
             continue
@@ -19,7 +18,7 @@ def evaluate(lines):
                 stack.append(stack.pop() - stack.pop())
             elif cmd == "print":
                 print str(stack.pop())
-
+                
 def load_file(fpath):
     lines = []
     with open(fpath, 'r') as ffile:

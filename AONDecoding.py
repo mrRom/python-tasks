@@ -37,3 +37,4 @@ if __name__ == '__main__':
     line = "311122234###55###3"
     print line
     newline = decode(line)
+    print line

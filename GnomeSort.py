@@ -1,20 +1,20 @@
-def gnomeSort(llist):
-    size = len(llist)
+def gnomeSort(datalist):
+    size = len(datalist)
     i = 1
     while i < size:
-        if (llist[i - 1] <= llist[i]):
+        if (datalist[i - 1] <= datalist[i]):
             i += 1
         else:
-            tmp = llist[i]
-            llist[i] = llist[i - 1]
-            llist[i - 1] = tmp
+            tmp = datalist[i]
+            datalist[i] = datalist[i - 1]
+            datalist[i - 1] = tmp
             i-= 1
             if (i == 0):
                 i = 1
-    return llist
+    return datalist
 
 if __name__ == '__main__':
-    lists = [2, 8, 6, 1, 32, 7, 51, 44]
-    print lists
-    newlists = gnomeSort(lists)
-    print newlists 
+    datalist = [2, 8, 6, 1, 32, 7, 51, 44]
+    print datalist
+    newdatalist = gnomeSort(datalist)
+    print newdatalist
