@@ -20,6 +20,6 @@ def do_something(data):
     return deserialize(result)
 
 if __name__ == '__main__':
-    a = {"1": "1", "2": "2", 3: 3}
+    a = {"1": "1", "somelist": [1, 2, 4], "2": "2", 3: 3, "sometuple": ("a", 1)} 
     resp = do_something(a)
     print resp

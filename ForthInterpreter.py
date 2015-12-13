@@ -35,7 +35,7 @@ def split_line(line):
             a = a[1:-1]
     return arguments
 
-def convertValue(val):
+def convert_value(val):
     try:
         result = int(val)
     except ValueError:

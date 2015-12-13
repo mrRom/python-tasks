@@ -9,21 +9,27 @@ class ForthInterpreter(object):
         """
         self.stack = stack
         self.cmds = {'add': Add, 'pop': Pop, 'put': Put, 'sub': Sub, 'print': Print}
+        
 
     def evaluate(self, lines):
         """Receives list of lines from the .frt file  
-        
+            If line starts with "#" or line is empty - ignore!
+            
         """
         for line in lines:
             line = line.strip()
+            
             if line.startswith("#") or line == "":
                 continue
             else:
                 arguments = self.split_line(line)
                 cmd = arguments[0]
                 params = self.convert_value(arguments[1:])
-                command = self.cmds.get(cmd)(*params)
-                command.execute(self.stack)
+                if self.cmds.get(cmd) == None:
+                    raise Exception("Unknown command: %s" %cmd)
+                else:
+                    command = self.cmds.get(cmd)(*params)
+                    command.execute(self.stack) 
 
     def load_file(self, fpath):
         """Returns list with lines from the file
@@ -50,7 +56,7 @@ class ForthInterpreter(object):
     def convert_value(self, params):
         """Converts strings from params into int or float type.
             Returns list of params with converted values
-            Throws ValueError if parameter cann't be converted.
+            Throws ValueError if parameter can't be converted.
             
         """
         result = []
@@ -76,14 +82,14 @@ class Add(Command):
     minStackSize = 2
     def execute(self, stack):
         if len(stack) < self.minStackSize:
-            raise Exception('Not enough values for "add" operation!')
+            raise Exception('Not enough values in the stack for "add" operation!')
         stack.append(stack.pop() + stack.pop())
 
 class Pop(Command):
     minStackSize = 1
     def execute(self, stack):
         if len(stack) < self.minStackSize:
-            raise Exception('Not enough values for "pop" operation!')
+            raise Exception('Not enough values in the stack for "pop" operation!')
         stack.pop()
 
 class Put(Command):
@@ -97,7 +103,7 @@ class Sub(Command):
     minStackSize = 2
     def execute(self, stack):
         if len(stack) < self.minStackSize:
-            raise Exception('Not enough values for "sub" operation!')
+            raise Exception('Not enough values in the stack for "sub" operation!')
         stack.append(stack.pop() - stack.pop())
 
 class Print(Command):
@@ -111,8 +117,9 @@ def eval_forth(filepath):
     forth_interpreter.evaluate(forth_interpreter.load_file(filepath))
 
 if __name__ == '__main__':
-    filepath = raw_input('Enter name of the file: ')
-    if filepath.endswith('.frt'):
-        eval_forth(filepath)
-    else:
-        raise Exception("Incorrect file type!")
+    eval_forth("example.frt")
+#     filepath = raw_input('Enter name of the file: ')
+#     if filepath.endswith('.frt'):
+#         eval_forth(filepath)
+#     else:
+#         raise Exception("Incorrect file type!")

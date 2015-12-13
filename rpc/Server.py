@@ -9,13 +9,23 @@ def deserialize(data):
     data = pickle.loads(data)
     return data
 
-def do_something(data):
-    print "Deserializing data..."
-    data = deserialize(data)
+def do_something(deserialized_data):
+    """Works with object on server side"""
     print "Working with data..."
+    result = deserialized_data
+    return result
+
+def process_data(data):
+    """Receives serialized object
+        Returns serialized result
+    
+    """
+    print "Deserializing data..."
+    deserialized_data = deserialize(data)
+    result = do_something(deserialized_data)
     print "Serializing data..."
-    data = serialize(data)
-    return data
+    serialized_result = serialize(result)
+    return serialized_result 
 
 def start_server():
     HOST = "127.0.0.1"
@@ -28,7 +38,7 @@ def start_server():
         sock, addr = srv.accept()
         print "Request was made."
         data = sock.recv(1024)
-        resp = do_something(data)
+        resp = process_data(data)
         print "Sending response to client " + str(addr) + " ..."
         sock.send(resp)
     sock.close()
