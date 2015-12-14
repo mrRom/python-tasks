@@ -94,7 +94,7 @@ class Put(Command):
     PARAMSCOUNT = 1
     def execute(self, stack):
         if len(self.params) != self.PARAMSCOUNT:
-            raise Exception('Wrong number of parameters!')
+            raise Exception('Wrong number of parameters for "put" operation!')
         stack.append(self.params[0])
 
 class Sub(Command):
@@ -114,7 +114,10 @@ class Print(Command):
 def eval_forth(filepath):
     stack = []
     forth_interpreter = ForthInterpreter(stack)
-    forth_interpreter.evaluate(forth_interpreter.load_file(filepath))
+    try:
+        forth_interpreter.evaluate(forth_interpreter.load_file(filepath))
+    except Exception, e:
+        print "Can't process this file! %s" %e
 
 if __name__ == '__main__':
     eval_forth("example.frt")

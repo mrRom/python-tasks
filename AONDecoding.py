@@ -38,14 +38,16 @@ def replace_sharps(line):
     
     """
     lst = list(line)
-    for i in range(len(lst)):
+    for i in range(1, len(lst)):
         if (lst[i] == "#"):
             lst[i] = lst[i-1]
+    if lst[0] == "#":
+        lst[0] = ""
     line = ''.join(lst)
     return line
     
 if __name__ == '__main__':
-    line = "#311122234###55##3"
+    line = "##311122234###55##3"
     print line
     newline = decode(line)
     print newline
