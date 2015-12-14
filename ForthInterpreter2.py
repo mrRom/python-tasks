@@ -32,7 +32,7 @@ class ForthInterpreter(object):
                     command.execute(self.stack) 
 
     def load_file(self, fpath):
-        """Returns list with lines from the file
+        """Returns list of lines from the file
         
         """
         lines = []
@@ -71,44 +71,44 @@ class Command(object):
     """Base class for all command classes
     
     """
-    paramsCount = None
-    minStackSize = None
     def __init__(self, *params):
         self.params = params
     def execute(self, stack):
         pass
 
 class Add(Command):
-    minStackSize = 2
+    MINSTACKSIZE = 2
     def execute(self, stack):
-        if len(stack) < self.minStackSize:
+        if len(stack) < self.MINSTACKSIZE:
             raise Exception('Not enough values in the stack for "add" operation!')
         stack.append(stack.pop() + stack.pop())
 
 class Pop(Command):
-    minStackSize = 1
+    MINSTACKSIZE = 1
     def execute(self, stack):
-        if len(stack) < self.minStackSize:
+        if len(stack) < self.MINSTACKSIZE:
             raise Exception('Not enough values in the stack for "pop" operation!')
         stack.pop()
 
 class Put(Command):
-    paramsCount = 1
+    PARAMSCOUNT = 1
     def execute(self, stack):
-        if len(self.params) != self.paramsCount:
+        if len(self.params) != self.PARAMSCOUNT:
             raise Exception('Wrong number of parameters!')
         stack.append(self.params[0])
 
 class Sub(Command):
-    minStackSize = 2
+    MINSTACKSIZE = 2
     def execute(self, stack):
-        if len(stack) < self.minStackSize:
+        if len(stack) < self.MINSTACKSIZE:
             raise Exception('Not enough values in the stack for "sub" operation!')
         stack.append(stack.pop() - stack.pop())
 
 class Print(Command):
-    minStackSize = 1
+    MINSTACKSIZE = 1
     def execute(self, stack):
+        if len(stack) < self.MINSTACKSIZE:
+            raise Exception('Not enough values in the stack for "print" operation!')
         print str(stack.pop())
 
 def eval_forth(filepath):

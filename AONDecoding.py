@@ -4,10 +4,10 @@ def decode(line):
         And then it replaces sharps with last occurring char.
         
     """
-    line = replaceSharps(replaceDoubles(removeSingleCharacters(line)))
+    line = replace_sharps(replace_doubles(remove_single_characters(line)))
     return line
 
-def removeSingleCharacters(line):
+def remove_single_characters(line):
     """Removes all single chars from str.
     
     """
@@ -20,10 +20,9 @@ def removeSingleCharacters(line):
     if (lst[0] != lst[1]):
         lst[0]= ""
     line = ''.join(lst)
-    print line
     return line
 
-def replaceDoubles(line):
+def replace_doubles(line):
     """Replaces two and more chars in a row with single char
     
     """
@@ -32,10 +31,9 @@ def replaceDoubles(line):
         if (lst[i] == lst[i+1]):
             lst[i] = ""
     line = ''.join(lst)
-    print line
     return line
     
-def replaceSharps(line):
+def replace_sharps(line):
     """Replaces sharps with last occurring char.
     
     """
@@ -44,11 +42,10 @@ def replaceSharps(line):
         if (lst[i] == "#"):
             lst[i] = lst[i-1]
     line = ''.join(lst)
-    print line
     return line
     
 if __name__ == '__main__':
-    line = "311122234###55###3"
+    line = "#311122234###55##3"
     print line
     newline = decode(line)
-    print line
+    print newline

@@ -1,4 +1,4 @@
-def gnomeSort(datalist):
+def gnome_sort(datalist):
     size = len(datalist)
     i = 1
     while i < size:
@@ -16,5 +16,5 @@ def gnomeSort(datalist):
 if __name__ == '__main__':
     datalist = [2, 8, 6, 1, 32, 7, 51, 44]
     print datalist
-    newdatalist = gnomeSort(datalist)
+    newdatalist = gnome_sort(datalist)
     print newdatalist
