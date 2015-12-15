@@ -48,9 +48,9 @@ class ForthInterpreter(object):
              
         """
         arguments = line.split(" ")
-        for argument in arguments:
-            if argument.startswith('"') and argument.endswith('"'):
-                argument = argument[1:-1]
+        for i in range(len(arguments)):
+            if arguments[i].startswith('"') and arguments[i].endswith('"'):
+                arguments[i] = arguments[i][1:-1]
         return arguments
 
     def convert_value(self, params):
@@ -73,8 +73,14 @@ class Command(object):
     """
     def __init__(self, *params):
         self.params = params
+
     def execute(self, stack):
         pass
+
+#params in add, print and sub can be ignored and there is no need to raise exception. 
+#They don't affect the stack itself.
+#So, if there will be some mistake in the file and method execute receives 
+#some parameters along with those commands, it will execute the command like it was without any parameters
 
 class Add(Command):
     MINSTACKSIZE = 2
