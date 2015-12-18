@@ -23,7 +23,7 @@ class ForthInterpreter(object):
                 continue
             else:
                 arguments = self.split_line(line)
-                cmd = arguments[0]
+                cmd = arguments[0].lower()
                 params = self.convert_value(arguments[1:])
                 if self.cmds.get(cmd) == None:
                     raise Exception("Unknown command: %s" %cmd)
@@ -48,10 +48,15 @@ class ForthInterpreter(object):
              
         """
         arguments = line.split(" ")
-        for i in range(len(arguments)):
-            if arguments[i].startswith('"') and arguments[i].endswith('"'):
-                arguments[i] = arguments[i][1:-1]
-        return arguments
+        result = []
+        for argument in arguments:
+            if argument == "":
+                continue
+            else: 
+                if argument.startswith('"') and argument.endswith('"'):
+                    argument = argument[1:-1]
+                result.append(argument)
+        return result
 
     def convert_value(self, params):
         """Converts strings from params into int or float type.
